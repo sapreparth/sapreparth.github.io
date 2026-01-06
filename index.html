@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parth Sapre – AI & Data Engineer</title>
+    <!--
+        This single–page website showcases the experience and skills of Parth
+        Sapre based on the provided résumé. The design leans into a futuristic
+        aesthetic with a dark colour palette and neon accents. Smooth
+        animations and a typewriter effect on the hero section reinforce
+        an AI‑centric vibe without relying on external libraries. All styling
+        and scripting is contained within this file for simplicity.
+    -->
+    <style>
+        /* Global reset and theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0d14;
+            color: #e0e7ff;
+            line-height: 1.6;
+        }
+        a {
+            color: #00eaff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #ff00ea;
+        }
+
+        /* Navigation bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 10%;
+            background: rgba(10, 13, 20, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #00eaff;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        nav li {
+            position: relative;
+        }
+        nav li:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00eaff, #ff00ea);
+            transition: width 0.3s;
+        }
+        nav li:hover:after {
+            width: 100%;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100vh;
+            background: url('e57e2d6f-4299-408c-9a0a-e7161f13abf8.png') no-repeat center/cover;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00eaff, #ff00ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            min-height: 2rem;
+        }
+        .contact-info {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .scroll-down {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Sections layout */
+        section {
+            padding: 100px 10% 80px;
+        }
+        section:nth-child(even) {
+            background: #0f1424;
+        }
+        h3.section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        h3.section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #00eaff, #ff00ea);
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+        }
+
+        /* About/summary */
+        .about p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Timeline for experience */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #00eaff;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .timeline-item.left { left: 0; transform: translateX(-100px); }
+        .timeline-item.right { left: 50%; transform: translateX(100px); }
+        .timeline-item.show { opacity: 1; transform: translateX(0); }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff00ea;
+            box-shadow: 0 0 10px #ff00ea;
+            z-index: 1;
+        }
+        .timeline-item.left::before { right: -10px; }
+        .timeline-item.right::before { left: -10px; }
+        .timeline-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #ff9af3;
+        }
+        .timeline-item h5 {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #00eaff;
+        }
+        .timeline-item ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .skill-card {
+            background: #10162b;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(255, 0, 234, 0.3);
+        }
+        .skill-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #00eaff;
+        }
+        .skill-card p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Projects */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .project-card {
+            background: #10162b;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 234, 255, 0.3);
+        }
+        .project-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #ff9af3;
+        }
+        .project-card p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Education */
+        .education-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .education-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #10162b;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .education-item h4 {
+            color: #00eaff;
+            font-size: 1.2rem;
+        }
+        .education-item span {
+            display: block;
+            font-size: 0.9rem;
+            color: #ff9af3;
+            margin-bottom: 5px;
+        }
+        .education-item p {
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 10%;
+            background: #0f1424;
+            font-size: 0.8rem;
+            color: #6676a5;
+        }
+
+        /* Responsive fixes */
+        @media (max-width: 900px) {
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 60px; padding-right: 20px; }
+            .timeline-item.right { left: 0; transform: translateX(-100px); }
+            .timeline-item.left::before, .timeline-item.right::before { left: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Parth Sapre</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Parth Sanjay Sapre</h1>
+            <h2 id="typed"></h2>
+            <div class="contact-info">
+                <p>📞 814‑218‑7384&nbsp;&nbsp;•&nbsp;&nbsp;📧 <a href="mailto:sapreparthu@gmail.com">sapreparthu@gmail.com</a><br>
+                <span>🔗 <a href="https://www.linkedin.com/in/parth-sapre-47571b178/" target="_blank">LinkedIn</a></span></p>
+            </div>
+            <div class="scroll-down"><a href="#about">Scroll Down ▾</a></div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h3 class="section-title">Professional Summary</h3>
+        <p>Led migration of healthcare risk‑scoring pipelines to AWS using PySpark, EMR, Glue and S3, optimising large‑scale risk and anomaly detection workloads. Owned 75% of the core migration runtime, improved performance by 45%, processed 2.8&nbsp;TB daily and cut monthly costs by $12K. Designed AI‑driven RAG solutions and predictive models integrated with ML workflows, built distributed data pipelines for LLM dataset prep processing over 1.2&nbsp;billion tokens, and engineered ETL orchestration with AWS Step Functions and Airflow to triple concurrency and reduce recovery time by 70%.</p>
+    </section>
+
+    <section class="experience" id="experience">
+        <h3 class="section-title">Work Experience</h3>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <h4>Python PySpark Engineer</h4>
+                <h5>June 2022 – Present | IBM Contractor – Technology Square Inc, Baltimore&nbsp;MD</h5>
+                <ul>
+                    <li>Led migration of healthcare risk‑scoring pipelines to AWS using PySpark, EMR and S3, improving runtime by 45%, handling 2.8&nbsp;TB/day and saving $12K/month.</li>
+                    <li>Designed AI‑driven RAG solutions and predictive models integrated with ML workflows producing reproducible datasets for analytics and fine‑tuning.</li>
+                    <li>Engineered distributed data pipelines for LLM dataset prep (tokenisation, embeddings, preprocessing) processing 1.2&nbsp;billion tokens with 60% higher throughput.</li>
+                    <li>Built ETL orchestration with AWS Step Functions &amp; Airflow, tripling concurrency, cutting recovery time by 70% and reducing failures by 85%.</li>
+                    <li>Applied OOP, modular design and algorithmic optimisation across 12K LOC, increasing maintainability by 40% and code reuse by 55%.</li>
+                    <li>Ensured data validation &amp; compliance (HIPAA, FHIR, HL7) with 99.2% validation coverage and zero compliance issues.</li>
+                </ul>
+            </div>
+            <div class="timeline-item right">
+                <h4>Software Engineer</h4>
+                <h5>September 2021 – May 2022 | Nest Technology, Sterling&nbsp;VA</h5>
+                <ul>
+                    <li>Built ML pipelines for fraud and customer risk scoring using Python &amp; Scikit‑learn, delivering 35% better detection accuracy and 50% faster inference.</li>
+                    <li>Designed ETL monitoring &amp; validation, reducing incidents by 80% and improving coverage by 95%.</li>
+                    <li>Partnered with product and data teams to automate reporting, saving 150+ hours/month and boosting adoption by 40%.</li>
+                    <li>Developed Airflow ingestion workflows, cutting execution time by 43% with 99.5% uptime.</li>
+                </ul>
+            </div>
+            <div class="timeline-item left">
+                <h4>Research Assistant</h4>
+                <h5>January 2020 – January 2021 | Gannon University, Erie&nbsp;PA</h5>
+                <ul>
+                    <li>Preprocessed over 12&nbsp;million NLP records, increasing model accuracy by 18% and decreasing prep time by 30%.</li>
+                    <li>Built a blockchain‑based healthcare data exchange achieving 100% FHIR compliance and 10K TPS throughput.</li>
+                    <li>Conducted research on secure data sharing and anomaly detection using blockchain frameworks.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <h3 class="section-title">Skills</h3>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h4>Cloud &amp; Big Data</h4>
+                <p>AWS (Redshift, S3, Lambda, EMR, Step Functions, API&nbsp;Gateway, IAM, CloudFormation), Apache Spark (PySpark), Airflow, distributed systems, ETL pipeline automation and data warehousing.</p>
+            </div>
+            <div class="skill-card">
+                <h4>AI/ML &amp; LLM</h4>
+                <p>LLM data preparation (tokenisation, embeddings, fine‑tuning datasets), NLP, predictive analytics, RAG models, Generative AI (Bedrock), Scikit‑learn, model deployment, experiment tracking and model evaluation (AUC, precision, recall).</p>
+            </div>
+            <div class="skill-card">
+                <h4>Software Engineering</h4>
+                <p>Object‑oriented programming, design patterns, algorithms, data structures, concurrency and system design.</p>
+            </div>
+            <div class="skill-card">
+                <h4>Healthcare &amp; Compliance</h4>
+                <p>CMS RAF risk scoring, HIPAA, FHIR, HL7 and healthcare claims &amp; payer data frameworks.</p>
+            </div>
+            <div class="skill-card">
+                <h4>Observability &amp; Data Quality</h4>
+                <p>CloudWatch, Splunk, SES, SNS, data validation frameworks, schema design and data dictionaries.</p>
+            </div>
+            <div class="skill-card">
+                <h4>Programming &amp; Tools</h4>
+                <p>Python, PySpark, SQL (with familiarity in Scala and Java), QuickSight for dashboards and reporting, modern ETL/orchestration (Airflow/Step Functions).</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h3 class="section-title">Projects</h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <h4>Credit Risk Classifier</h4>
+                <p>Developed a supervised machine‑learning model using Python and Scikit‑learn to classify high‑risk transactions from historical payment data, achieving an 81% recall for fraudulent transactions.</p>
+            </div>
+            <div class="project-card">
+                <h4>Cyber Threat Pattern Detection</h4>
+                <p>Implemented a Spark‑based anomaly detection pipeline on AWS to analyse log data and identify suspicious access patterns, improving detection speed and scalability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="education" id="education">
+        <h3 class="section-title">Education &amp; Certifications</h3>
+        <div class="education-list">
+            <div class="education-item">
+                <h4>Computer &amp; Information Science (Data Science)</h4>
+                <span>Gannon University, Erie&nbsp;PA | 2021</span>
+                <p>GPA: 3.94, Scholastic Excellence Award.</p>
+            </div>
+            <div class="education-item">
+                <h4>Computer Engineering</h4>
+                <span>Dharmsinh Desai University, Nadiad, India | 2019</span>
+                <p>GPA: 3.64.</p>
+            </div>
+            <div class="education-item">
+                <h4>Computer Engineering</h4>
+                <span>Maharaja Sayajirao University, Vadodara, India | 2016</span>
+                <p>GPA: 3.78.</p>
+            </div>
+            <div class="education-item">
+                <h4>Certifications</h4>
+                <p>Machine Learning Specialisation (Coursera, Andrew&nbsp;Ng); Certified AWS Cloud Practitioner; Certified Data Analytics (AWS); PySpark; Python; Natural Language Processing; Machine Learning; Pattern Recognition; Advanced SQL; AWS; Problem Solving.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Parth Sapre. All rights reserved.
+    </footer>
+
+    <script>
+        // Typewriter effect for the hero tagline
+        const typedElement = document.getElementById('typed');
+        const roles = ['AI & Data Engineer', 'Cloud & Big Data Expert', 'ML/LLM Specialist', 'Software Designer'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let typing = true;
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+            if (typing) {
+                if (charIndex < currentRole.length) {
+                    typedElement.textContent += currentRole.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeEffect, 90);
+                } else {
+                    typing = false;
+                    setTimeout(typeEffect, 2000);
+                }
+            } else {
+                if (charIndex > 0) {
+                    typedElement.textContent = currentRole.substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(typeEffect, 50);
+                } else {
+                    typing = true;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(typeEffect, 500);
+                }
+            }
+        }
+        typeEffect();
+
+        // Intersection Observer for timeline animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
